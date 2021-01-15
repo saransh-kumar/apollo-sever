@@ -4,6 +4,7 @@ import { ApolloServer } from 'apollo-server-express';
 class Server {
   constructor(config) {
     this.config = config;
+    // eslint-disable-next-line no-console
     console.log('config: ', config);
     this.app = Express();
   }
