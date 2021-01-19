@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 class User {
   constructor() {
     this.users = new Map();

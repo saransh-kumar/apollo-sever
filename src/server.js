@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
 import Express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import { createServer } from 'http';
 
 class Server {
   constructor(config) {
@@ -30,16 +32,18 @@ class Server {
       ...schema
     });
     this.Server.applyMiddleware({ app });
+    this.httpServer = createServer(app);
+    this.Server.installSubscriptionHandlers(this.httpServer);
     this.run();
   }
 
   run() {
-    const { app, config: { PORT } } = this;
-    app.listen(PORT, (err) => {
+    const { config: { PORT } } = this;
+    this.httpServer.listen(PORT, (err) => {
       if (err) {
         console.log(err);
       }
-      console.log(`App is running on PORT ${PORT}`);
+      console.log(`APP is running on PORT ${PORT}`);
     });
   }
 }

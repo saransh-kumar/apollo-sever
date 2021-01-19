@@ -1,18 +1,25 @@
+/* eslint-disable import/no-duplicates */
 import userInstance from '../../service/user';
+import pubsub from '../pubsub';
+import constant from '../../lib/constant';
 
 export default {
-  createTrainee: (parent, args, context) => {
+  createTrainee: (parent, args) => {
     const { user } = args;
-    return userInstance.createUser(user);
+    const addedUser = userInstance.createUser(user);
+    pubsub.publish(constant.subscriptions.TRAINEE_ADDED, { traineeAdded: addedUser });
+    return addedUser;
   },
-  updateTrainee: (parent, args, context) => {
-    const {
-      id, role
-    } = args;
-    return userInstance.updateUser(id, role);
+  updateTrainee: (parent, args) => {
+    const { id, role } = args;
+    const updatedUser = userInstance.updateUser(id, role);
+    pubsub.publish(constant.subscriptions.TRAINEE_UPDATED, { traineeUpdated: updatedUser });
+    return updatedUser;
   },
-  deleteTrainee: (parent, args, context) => {
+  deleteTrainee: (parent, args) => {
     const { id } = args;
-    return userInstance.deleteUser(id);
+    const deletedId = userInstance.deleteUser(id);
+    pubsub.publish(constant.subscriptions.TRAINEE_DELETED, { traineeDeleted: deletedId });
+    return deletedId;
   }
 };
