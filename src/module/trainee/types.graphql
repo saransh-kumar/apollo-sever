@@ -3,3 +3,15 @@ input CreateUserInput {
     email: String!
     role: String!
 }
+
+input LoginInput {
+    email: String!
+    password: String!
+}
+
+input UpdateUser {
+    id: ID!
+    name: String
+    email: String
+    role: String
+}

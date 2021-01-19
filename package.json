@@ -4,14 +4,15 @@
     "description": "",
     "main": "index.js",
     "dependencies": {
+        "apollo-datasource-rest": "^0.9.7",
         "apollo-server-express": "^2.19.1",
         "body-parser": "^1.19.0",
         "cors": "^2.8.5",
+        "dotenv": "^8.2.0",
         "express": "^4.17.1",
         "graphql": "^15.4.0",
         "merge-graphql-schemas": "^1.7.8",
-        "path": "^0.12.7",
-        "dotenv": "^8.2.0"
+        "path": "^0.12.7"
     },
     "devDependencies": {
         "@babel/core": "^7.12.10",

@@ -8,6 +8,7 @@ config();
 const envVars = process.env;
 config = Object.freeze({
   NODE_ENV: envVars.NODE_ENV,
-  PORT: envVars.PORT
+  PORT: envVars.PORT,
+  SERVICE_URL: envVars.SERVICE_URL
 });
 export default config;

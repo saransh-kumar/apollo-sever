@@ -11,8 +11,8 @@ export default {
     return addedUser;
   },
   updateTrainee: (parent, args) => {
-    const { id, role } = args;
-    const updatedUser = userInstance.updateUser(id, role);
+    const { user } = args;
+    const updatedUser = userInstance.updateUser(user);
     pubsub.publish(constant.subscriptions.TRAINEE_UPDATED, { traineeUpdated: updatedUser });
     return updatedUser;
   },
