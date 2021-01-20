@@ -34,6 +34,12 @@ class Server {
       dataSources: () => {
         const userAPI = new UserAPI();
         return { userAPI };
+      },
+      context: ({ req }) => {
+        if (req) {
+          return { token: req.headers.authorization };
+        }
+        return {};
       }
     });
     this.Server.applyMiddleware({ app });
