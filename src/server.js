@@ -1,5 +1,8 @@
+/* eslint-disable no-console */
 import Express from 'express';
 import { ApolloServer } from 'apollo-server-express';
+import { createServer } from 'http';
+import { UserAPI, TraineeAPI } from './datasource/index';
 
 class Server {
   constructor(config) {
@@ -27,19 +30,32 @@ class Server {
   setupApollo(schema) {
     const { app } = this;
     this.Server = new ApolloServer({
-      ...schema
+      ...schema,
+      dataSources: () => {
+        const userAPI = new UserAPI();
+        const traineeAPI = new TraineeAPI();
+        return { userAPI, traineeAPI };
+      },
+      context: ({ req }) => {
+        if (req) {
+          return { token: req.headers.authorization };
+        }
+        return {};
+      }
     });
     this.Server.applyMiddleware({ app });
+    this.httpServer = createServer(app);
+    this.Server.installSubscriptionHandlers(this.httpServer);
     this.run();
   }
 
   run() {
-    const { app, config: { PORT } } = this;
-    app.listen(PORT, (err) => {
+    const { config: { PORT } } = this;
+    this.httpServer.listen(PORT, (err) => {
       if (err) {
         console.log(err);
       }
-      console.log(`App is running on PORT ${PORT}`);
+      console.log(`APP is running on PORT ${PORT}`);
     });
   }
 }
