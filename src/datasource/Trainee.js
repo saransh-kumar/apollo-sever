@@ -7,8 +7,8 @@ export default class TraineeAPI extends RESTDataSource {
     this.baseURL = `${configurations.SERVICE_URL}/api/trainee`;
   }
 
-  async getTrainees() {
-    return this.get('/');
+  async getTrainees(skip, limit, sortedBy, sortedOrder) {
+    return this.get(`/?sortedBy=${sortedBy}&limit=${limit}&skip=${skip}&sortedOrder=${sortedOrder}`);
   }
 
   async createTrainee(payload) {
@@ -16,12 +16,10 @@ export default class TraineeAPI extends RESTDataSource {
   }
 
   async updateTrainee(payload) {
-    console.log('Payload', payload);
     return this.put('/', payload);
   }
 
   deleteTrainee(payload) {
-    console.log('Payload: ', payload);
     return this.delete(`/${payload.originalId}`, payload);
   }
 }

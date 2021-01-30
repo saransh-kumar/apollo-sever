@@ -16,3 +16,10 @@ input UpdateUser {
     email: String
     role: String
 }
+
+input GetInput {
+    skip: String
+    limit: String
+    sortedBy: String
+    sortedOrder: String
+}
