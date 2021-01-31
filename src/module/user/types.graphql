@@ -1,6 +1,22 @@
+scalar Date
+
 type User {
     originalId: ID!
     name: String
     email: String
     role: String
+}
+
+type TRAINEELIST {
+    totalCount: String
+    records: [ALLFIELD]
+}
+
+type ALLFIELD {
+    _id: String
+    name: String
+    email: String
+    role: String
+    originalId: String
+    createdAt: Date
 }

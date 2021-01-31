@@ -19,11 +19,9 @@ export default {
   },
   deleteTrainee: async (parent, args, context) => {
     const { originalId } = args;
-    console.log(originalId);
     const { dataSources: { traineeAPI } } = context;
     const deletedId = await traineeAPI.deleteTrainee({ originalId });
     pubsub.publish(constant.subscriptions.TRAINEE_DELETED, { traineeDeleted: deletedId });
-    console.log(deletedId);
     return deletedId.message;
   }
 };
